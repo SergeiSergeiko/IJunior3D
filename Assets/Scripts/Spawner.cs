@@ -55,6 +55,6 @@ public class Spawner : MonoBehaviour
         if (coroutine != null)
             StopCoroutine(coroutine);
 
-        StartCoroutine(method);
+        coroutine = StartCoroutine(method);
     }
 }
