@@ -18,6 +18,12 @@ public class Strobe : MonoBehaviour
         _defaultColor = _renderer.material.color;
     }
 
+    private void OnDisable()
+    {
+        if (_flashing != null)
+            StopCoroutine(_flashing);
+    }
+
     public void Play()
     {
         StartFlashing();
@@ -31,7 +37,6 @@ public class Strobe : MonoBehaviour
 
     private IEnumerator Flashing()
     {
-        Debug.Log("Flashing");
         WaitForSeconds wait = new(_delay);
 
         while (true)

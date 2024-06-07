@@ -17,6 +17,12 @@ public class Alarm : MonoBehaviour
         _sound.volume = _minVolume;
     }
 
+    private void OnDisable()
+    {
+        if (_volumeChanging != null)
+            StopCoroutine(_volumeChanging);
+    }
+
     public void Play()
     {
         StartVolumeChanging(_maxVolume);
