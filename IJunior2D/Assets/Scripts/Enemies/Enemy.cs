@@ -27,9 +27,9 @@ public class Enemy : MonoBehaviour
         Health = _maxHealth;
     }
 
-    protected void TakeDamage(int damage)
+    protected void TakeDamage()
     {
-        Health -= damage;
+        Health--;
     }
 
     protected virtual void Die()

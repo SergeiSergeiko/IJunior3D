@@ -24,9 +24,7 @@ public class Player : MonoBehaviour
             _healthBar.Refresh(Health);
 
             if (_health <= 0)
-            {
                 Die();
-            }
         }
     }
     public int Coins
