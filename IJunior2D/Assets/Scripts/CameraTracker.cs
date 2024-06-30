@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using MainCharacter;
 
 public class CameraTracker : MonoBehaviour
 {
