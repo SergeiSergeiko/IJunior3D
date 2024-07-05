@@ -2,17 +2,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int _maxHealth;
+    [SerializeField] private int _maxHealth;
 
-    private int _health;
-
-    public int CurrentHealth
-    {
-        get
-        {
-            return _health;
-        }
-    }
+    public int Value { get; private set; }
 
     private void Start()
     {
@@ -21,6 +13,6 @@ public class Health : MonoBehaviour
 
     private void SetHealth(int value)
     {
-        _health = Mathf.Clamp(value, 0, _maxHealth);
+        Value = Mathf.Clamp(value, 0, _maxHealth);
     }
 }

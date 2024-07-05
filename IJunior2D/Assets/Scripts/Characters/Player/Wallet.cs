@@ -1,36 +1,41 @@
 using UnityEngine;
 
-namespace MainCharacter
+public class Wallet : MonoBehaviour
 {
-    public class Wallet : MonoBehaviour
+    [SerializeField] private PlayerCollisionHandler _collisionHandler;
+
+    private int _coins;
+
+    public int Coins
     {
-        private int _coins;
-
-        public int Coins
+        get
         {
-            get
-            {
-                return _coins;
-            }
-
-            private set
-            {
-                _coins = Mathf.Clamp(value, 0, int.MaxValue);
-            }
+            return _coins;
         }
 
-        private void Start()
+        private set
         {
-            Coins = 0;
+            _coins = Mathf.Clamp(value, 0, int.MaxValue);
         }
+    }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.TryGetComponent(out Coin coin))
-            {
-                Coins++;
-                coin.Die();
-            }
-        }
+    private void OnEnable()
+    {
+        _collisionHandler.CoinPickUp += TakeCoin;
+    }
+
+    private void OnDisable()
+    {
+        _collisionHandler.CoinPickUp -= TakeCoin;
+    }
+
+    private void Start()
+    {
+        Coins = 0;
+    }
+
+    private void TakeCoin()
+    {
+        Coins++;
     }
 }
