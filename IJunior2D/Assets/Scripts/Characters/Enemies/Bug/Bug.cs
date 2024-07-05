@@ -1,74 +1,71 @@
 using UnityEngine;
 
-namespace Enemy
+[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
+public class Bug : Enemy
 {
-    [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
-    public class Bug : Enemy
+    [SerializeField] int _speed;
+
+    private Rigidbody2D _rigidbody;
+    private Vector3 _direction = Vector2.right;
+
+    private void Start()
     {
-        [SerializeField] int _speed;
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
 
-        private Rigidbody2D _rigidbody;
-        private Vector3 _direction = Vector2.right;
+    private void FixedUpdate()
+    {
+        Patroling();
+    }
 
-        private void Start()
-        {
-            _rigidbody = GetComponent<Rigidbody2D>();
-        }
+    private void Patroling()
+    {
+        if (IsGroundFront() == false)
+            ChangeDirection();
 
-        private void FixedUpdate()
-        {
-            Patroling();
-        }
+        Move();
+    }
 
-        private void Patroling()
-        {
-            if (IsGroundFront() == false)
-                ChangeDirection();
+    private void Move()
+    {
+        _rigidbody.transform.position += _direction * _speed * Time.deltaTime;
+    }
 
-            Move();
-        }
+    private bool IsGroundFront()
+    {
+        int divider = 2;
+        float radius = 0.1f;
+        float positionX = transform.position.x + transform.localScale.x / divider;
+        float positionY = transform.position.y - transform.localScale.y / divider;
+        Vector3 point = new Vector3(positionX, positionY, 0);
 
-        private void Move()
-        {
-            _rigidbody.transform.position += _direction * _speed * Time.deltaTime;
-        }
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(point, radius);
 
-        private bool IsGroundFront()
-        {
-            int divider = 2;
-            float radius = 0.1f;
-            float positionX = transform.position.x + transform.localScale.x / divider;
-            float positionY = transform.position.y - transform.localScale.y / divider;
-            Vector3 point = new Vector3(positionX, positionY, 0);
+        foreach (Collider2D collider in colliders)
+            if (collider.TryGetComponent(out Ground _))
+                return true;
 
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(point, radius);
+        return false;
+    }
 
-            foreach (Collider2D collider in colliders)
-                if (collider.TryGetComponent(out Ground _))
-                    return true;
+    private void ChangeDirection()
+    {
+        int factor = 1;
+        Vector3 currentScale = transform.localScale;
+        currentScale.x *= -factor;
+        transform.localScale = currentScale;
 
-            return false;
-        }
+        _direction.x *= -1;
+    }
 
-        private void ChangeDirection()
-        {
-            int factor = 1;
-            Vector3 currentScale = transform.localScale;
-            currentScale.x *= -factor;
-            transform.localScale = currentScale;
+    private void OnDrawGizmos()
+    {
+        float radius = 0.1f;
+        float positionX = transform.position.x + 0.5f * transform.localScale.x;
+        float positionY = transform.position.y - 0.5f;
+        Vector3 point = new Vector3(positionX, positionY, 0);
 
-            _direction.x *= -1;
-        }
-
-        private void OnDrawGizmos()
-        {
-            float radius = 0.1f;
-            float positionX = transform.position.x + 0.5f * transform.localScale.x;
-            float positionY = transform.position.y - 0.5f;
-            Vector3 point = new Vector3(positionX, positionY, 0);
-
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(point, radius);
-        }
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(point, radius);
     }
 }
