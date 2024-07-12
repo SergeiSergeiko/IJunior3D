@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+namespace Enemies
 {
-    [SerializeField] private Enemy _enemy;
-    [SerializeField] private SpawnPoint[] _spawnPoints;
-
-    private void Start()
+    public class EnemySpawner : MonoBehaviour
     {
-        foreach (SpawnPoint spawnPoint in _spawnPoints)
-            Spawn(spawnPoint.transform.position);
-    }
+        [SerializeField] private Enemy _enemy;
+        [SerializeField] private SpawnPoint[] _spawnPoints;
 
-    private void Spawn(Vector3 position)
-    {
-        Instantiate(_enemy, position, Quaternion.identity);
+        private void Start()
+        {
+            foreach (SpawnPoint spawnPoint in _spawnPoints)
+                Spawn(spawnPoint.transform.position);
+        }
+
+        private void Spawn(Vector3 position)
+        {
+            Instantiate(_enemy, position, Quaternion.identity);
+        }
     }
 }

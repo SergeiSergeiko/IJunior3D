@@ -1,71 +1,75 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
-public class Bug : Enemy
+namespace Enemies
 {
-    [SerializeField] int _speed;
-
-    private Rigidbody2D _rigidbody;
-    private Vector3 _direction = Vector2.right;
-
-    private void Start()
+    [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
+    public class Bug : Enemy
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-    }
+        [SerializeField] int _speed;
 
-    private void FixedUpdate()
-    {
-        Patroling();
-    }
+        private Rigidbody2D _rigidbody;
+        private Vector3 _direction = Vector2.right;
 
-    private void Patroling()
-    {
-        if (IsGroundFront() == false)
-            ChangeDirection();
+        private void Start()
+        {
+            Damage = _damage;
+            _rigidbody = GetComponent<Rigidbody2D>();
+        }
 
-        Move();
-    }
+        private void FixedUpdate()
+        {
+            Patroling();
+        }
 
-    private void Move()
-    {
-        _rigidbody.transform.position += _direction * _speed * Time.deltaTime;
-    }
+        private void Patroling()
+        {
+            if (IsGroundFront() == false)
+                ChangeDirection();
 
-    private bool IsGroundFront()
-    {
-        int divider = 2;
-        float radius = 0.1f;
-        float positionX = transform.position.x + transform.localScale.x / divider;
-        float positionY = transform.position.y - transform.localScale.y / divider;
-        Vector3 point = new Vector3(positionX, positionY, 0);
+            Move();
+        }
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(point, radius);
+        private void Move()
+        {
+            _rigidbody.transform.position += _direction * _speed * Time.deltaTime;
+        }
 
-        foreach (Collider2D collider in colliders)
-            if (collider.TryGetComponent(out Ground _))
-                return true;
+        private bool IsGroundFront()
+        {
+            int divider = 2;
+            float radius = 0.1f;
+            float positionX = transform.position.x + transform.localScale.x / divider;
+            float positionY = transform.position.y - transform.localScale.y / divider;
+            Vector3 point = new Vector3(positionX, positionY, 0);
 
-        return false;
-    }
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(point, radius);
 
-    private void ChangeDirection()
-    {
-        int factor = 1;
-        Vector3 currentScale = transform.localScale;
-        currentScale.x *= -factor;
-        transform.localScale = currentScale;
+            foreach (Collider2D collider in colliders)
+                if (collider.TryGetComponent(out Ground _))
+                    return true;
 
-        _direction.x *= -1;
-    }
+            return false;
+        }
 
-    private void OnDrawGizmos()
-    {
-        float radius = 0.1f;
-        float positionX = transform.position.x + 0.5f * transform.localScale.x;
-        float positionY = transform.position.y - 0.5f;
-        Vector3 point = new Vector3(positionX, positionY, 0);
+        private void ChangeDirection()
+        {
+            int factor = 1;
+            Vector3 currentScale = transform.localScale;
+            currentScale.x *= -factor;
+            transform.localScale = currentScale;
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(point, radius);
+            _direction.x *= -1;
+        }
+
+        private void OnDrawGizmos()
+        {
+            float radius = 0.1f;
+            float positionX = transform.position.x + 0.5f * transform.localScale.x;
+            float positionY = transform.position.y - 0.5f;
+            Vector3 point = new Vector3(positionX, positionY, 0);
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(point, radius);
+        }
     }
 }

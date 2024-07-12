@@ -1,11 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public class Attacker : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private Animator _animator;
+    [SerializeField] private float _reloadTime;
 
-    private bool _isAttack;
+    private Coroutine _reloading;
+    private bool _canAttack;
+
+    public bool IsAttack { get; private set; }
 
     private void OnEnable()
     {
@@ -19,18 +24,43 @@ public class Attacker : MonoBehaviour
 
     private void Update()
     {
-        if (_isAttack)
+        if (_canAttack)
             Attack();
     }
 
     private void Attack()
     {
+        _canAttack = false;
+        IsAttack = true;
         _animator.Play(PlayerAnimatorData.Params.Attack);
-        _isAttack = false;
+        StartReloading();
+    }
+
+    private void StartReloading()
+    {
+        if (_reloading != null)
+            StopCoroutine(Reloading());
+
+        _reloading = StartCoroutine(Reloading());
+    }
+
+    private IEnumerator Reloading()
+    {
+        float timePassed = 0;
+
+        while (timePassed < _reloadTime)
+        {
+            timePassed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        IsAttack = false;
     }
 
     private void OnAttackHandle()
     {
-        _isAttack = true;
+        if (IsAttack == false)
+            _canAttack = true;
     }
 }

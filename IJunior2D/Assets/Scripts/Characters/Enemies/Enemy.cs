@@ -1,4 +1,12 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Health))]
-public class Enemy : MonoBehaviour { }
+namespace Enemies
+{
+    [RequireComponent(typeof(EnemyHealth))]
+    public class Enemy : MonoBehaviour
+    {
+        [SerializeField] protected int _damage;
+
+        public int Damage { get; protected set; }
+    }
+}

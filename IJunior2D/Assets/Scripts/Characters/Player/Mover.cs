@@ -7,6 +7,7 @@ public class Mover : MonoBehaviour
     [SerializeField] private float _jumpForce = 15f;
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private GroundDetecter _groundDetecter;
+    [SerializeField] private Attacker _attacker;
 
     private Rigidbody2D _rigidbody;
     private Animator _animator;
@@ -40,13 +41,10 @@ public class Mover : MonoBehaviour
         if (_isJump)
             Jump();
 
-        if (_axisDirection != 0)
+        if (_axisDirection == 0)
+            Stand();
+        else
             Move();
-    }
-
-    private void Update()
-    {
-        Stand();
     }
 
     private void Move()
@@ -76,7 +74,7 @@ public class Mover : MonoBehaviour
 
     private void Stand()
     {
-        if (_isGrounded && _axisDirection == 0)
+        if (_isGrounded && _axisDirection == 0 && _attacker.IsAttack == false)
             _animator.Play(PlayerAnimatorData.Params.Idle);
     }
 
