@@ -4,7 +4,7 @@ namespace Enemies
 {
     public class EnemyHealth : Health
     {
-        [SerializeField] private CollisionHandler _collisionHandler;
+        [SerializeField] private EnemyCollisionHandler _collisionHandler;
 
         private void OnEnable()
         {
