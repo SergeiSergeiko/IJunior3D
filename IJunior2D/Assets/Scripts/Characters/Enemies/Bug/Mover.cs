@@ -5,10 +5,10 @@ namespace Enemies
     [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
     public class Mover : MonoBehaviour
     {
-        [SerializeField] int _speed;
-        [SerializeField] int _followSpeed;
-        [SerializeField] Attacker _attacker;
-        [SerializeField] GroundFrontDetecter _groundFrontDetecter;
+        [SerializeField] private int _speed;
+        [SerializeField] private int _followSpeed;
+        [SerializeField] private Attacker _attacker;
+        [SerializeField] private GroundFrontDetecter _groundFrontDetecter;
 
         private Rigidbody2D _rigidbody;
         private Vector3 _direction;
