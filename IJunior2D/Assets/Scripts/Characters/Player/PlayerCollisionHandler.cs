@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Enemies;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [RequireComponent(typeof(CapsuleCollider2D))]
 public class PlayerCollisionHandler : MonoBehaviour
@@ -25,5 +26,15 @@ public class PlayerCollisionHandler : MonoBehaviour
             CoinPickUp?.Invoke();
             coin.Remove();
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        DamageReceived?.Invoke(damage);
+    }
+
+    public void TakeHealth(int health)
+    {
+        HealthItemPickUp?.Invoke(health);
     }
 }
