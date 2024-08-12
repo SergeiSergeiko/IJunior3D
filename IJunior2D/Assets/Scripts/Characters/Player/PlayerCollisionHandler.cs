@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using Enemies;
-using static UnityEngine.EventSystems.EventTrigger;
 
 [RequireComponent(typeof(CapsuleCollider2D))]
 public class PlayerCollisionHandler : MonoBehaviour
