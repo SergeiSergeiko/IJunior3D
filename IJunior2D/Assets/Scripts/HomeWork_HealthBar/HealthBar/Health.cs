@@ -10,27 +10,19 @@ public class Health : MonoBehaviour
 
     protected void Start()
     {
-        SetHealth(MaxHealth);
+        TakeHealth(MaxHealth);
     }
 
     protected void TakeDamage(int damage)
     {
         int health = Value - damage;
 
-        SetHealth(health);
+        TakeHealth(health);
     }
 
-    protected void SetHealth(int value)
+    protected void TakeHealth(int value)
     {
-        Value = Mathf.Clamp(value, 0, MaxHealth);
+        Value = Mathf.Clamp(Value + value, 0, MaxHealth);
         Changed?.Invoke(Value);
-
-        if (Value <= 0)
-            Die();
-    }
-
-    protected void Die()
-    {
-        Destroy(gameObject);
     }
 }

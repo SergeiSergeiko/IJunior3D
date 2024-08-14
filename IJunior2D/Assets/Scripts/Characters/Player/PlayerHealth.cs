@@ -15,11 +15,4 @@ public class PlayerHealth : Health
         _collisionHandler.DamageReceived -= TakeDamage;
         _collisionHandler.HealthItemPickUp -= TakeHealth;
     }
-
-    private void TakeHealth(int health)
-    {
-        int value = Value + health;
-
-        SetHealth(value);
-    }
 }
