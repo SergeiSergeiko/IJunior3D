@@ -15,14 +15,17 @@ public class Health : MonoBehaviour
 
     protected void TakeDamage(int damage)
     {
-        int health = Value - damage;
-
-        TakeHealth(health);
+        SetValue(Value - damage);
     }
 
-    protected void TakeHealth(int value)
+    protected void TakeHealth(int health)
     {
-        Value = Mathf.Clamp(Value + value, 0, MaxHealth);
+        SetValue(Value + health);
+    }
+
+    private void SetValue(int value)
+    {
+        Value = Mathf.Clamp(value, 0, MaxHealth);
         Changed?.Invoke(Value);
     }
 }
