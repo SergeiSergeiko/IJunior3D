@@ -6,7 +6,7 @@ public class SliderHealthBar : HealthBar
 {
     [SerializeField] private Slider _slider;
     [SerializeField] private float _smoothSpeed;
-    [SerializeField] private bool _enable;
+    [SerializeField] private bool _smoothHealEnable;
 
     private Coroutine _smoothChangeValue;
 
@@ -18,7 +18,7 @@ public class SliderHealthBar : HealthBar
 
     protected override void OnValueChanged(int value)
     { 
-        if (_slider.value < value ^ _enable)
+        if (_slider.value < value ^ _smoothHealEnable)
             _slider.value = value;
         else
             StartSmoothChangeValue(value);

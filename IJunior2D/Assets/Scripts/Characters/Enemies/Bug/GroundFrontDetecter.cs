@@ -4,7 +4,7 @@ namespace Enemies
 {
     public class GroundFrontDetecter : MonoBehaviour
     {
-        [SerializeField] private Bug _bug;
+        [SerializeField] private Mover _mover;
         [SerializeField] private float _radius = 0.1f;
 
         private Vector3 _position;
@@ -25,8 +25,8 @@ namespace Enemies
         private Vector3 GetPointPosition()
         {
             int divider = 2;
-            float positionX = _bug.transform.position.x + _bug.transform.localScale.x / divider;
-            float positionY = _bug.transform.position.y - _bug.transform.localScale.y / divider;
+            float positionX = _mover.transform.position.x + _mover.transform.localScale.x / divider;
+            float positionY = _mover.transform.position.y - _mover.transform.localScale.y / divider;
 
             return new Vector3(positionX, positionY, 0);
         }

@@ -26,14 +26,4 @@ public class PlayerCollisionHandler : MonoBehaviour
             coin.Remove();
         }
     }
-
-    public void TakeDamage(int damage)
-    {
-        DamageReceived?.Invoke(damage);
-    }
-
-    public void TakeHealth(int health)
-    {
-        HealthItemPickUp?.Invoke(health);
-    }
 }

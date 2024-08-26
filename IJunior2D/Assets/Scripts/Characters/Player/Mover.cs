@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(CapsuleCollider2D))]
 public class Mover : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 6;
@@ -54,7 +54,7 @@ public class Mover : MonoBehaviour
 
         Vector3 direction = new(horizontal, 0, 0);
         _rigidbody.transform.position += direction * _moveSpeed * Time.deltaTime;
-
+        
         if (_isGrounded)
             _animator.Play(PlayerAnimatorData.Params.Run);
 
