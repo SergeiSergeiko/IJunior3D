@@ -1,23 +1,31 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(SettingsControl))]
 public class InputReader : MonoBehaviour
 {
     private const string Horizontal = "Horizontal";
+
+    private SettingsControl _settingsControl;
 
     public event Action Went;
     public event Action Jumped;
     public event Action Attacked;
 
+    private void Start()
+    {
+        _settingsControl = GetComponent<SettingsControl>();
+    }
+
     private void Update()
     {
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        if (Input.GetKey(_settingsControl.Left) || Input.GetKey(_settingsControl.Right))
             Went?.Invoke();
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(_settingsControl.Up))
             Jumped?.Invoke();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(_settingsControl.Attack))
             Attacked?.Invoke();
     }
 

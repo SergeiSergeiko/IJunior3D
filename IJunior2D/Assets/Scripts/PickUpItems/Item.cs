@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HealthItem : MonoBehaviour
+public class Item : MonoBehaviour
 {
     [field: SerializeField] public int Value { get; private set; }
 

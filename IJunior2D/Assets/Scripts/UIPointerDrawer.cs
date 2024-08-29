@@ -8,7 +8,7 @@ public class UIPointerDrawer : MonoBehaviour
 
     private void Start()
     {
-        _rectTransform = _pointer.GetComponent<RectTransform>();
+        _rectTransform = _pointer.GetRectTransform();
     }
 
     private void Update()

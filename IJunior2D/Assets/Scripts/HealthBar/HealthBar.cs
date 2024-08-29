@@ -1,26 +1,25 @@
 using UnityEngine;
 
 public class HealthBar : MonoBehaviour
-
 {
-    [SerializeField] protected Health _health;
+    [SerializeField] protected Health Health;
 
-    protected int _MaxValue;
+    protected int MaxValue;
 
     protected void OnEnable()
     {
-        _MaxValue = _health.MaxHealth;
-        _health.Changed += OnValueChanged;
+        MaxValue = Health.MaxValue;
+        Health.Changed += OnValueChanged;
     }
 
     protected void OnDisable()
     {
-        _health.Changed -= OnValueChanged;
+        Health.Changed -= OnValueChanged;
     }
 
     protected void Start()
     {
-        OnValueChanged(_MaxValue);
+        OnValueChanged(MaxValue);
     }
 
     protected virtual void OnValueChanged(int value) { }

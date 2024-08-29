@@ -1,13 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Image))]
+[RequireComponent(typeof(Image), typeof(RectTransform))]
 public class Pointer : MonoBehaviour
 {
-    private Image _sprite;
-
-    private void Start()
-    {
-        _sprite = GetComponent<Image>();
-    }
+    public RectTransform GetRectTransform() => GetComponent<RectTransform>();
 }

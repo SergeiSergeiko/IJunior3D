@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class HealthSpawner : MonoBehaviour
+public class Spawner<T> : MonoBehaviour where T : Object
 {
-    [SerializeField] private HealthItem _health;
+    [SerializeField] private T _spawnObject;
     [SerializeField] private SpawnPoint[] _spawnPoints;
 
     private void Start()
@@ -13,6 +13,6 @@ public class HealthSpawner : MonoBehaviour
 
     private void Spawn(Vector3 position)
     {
-        Instantiate(_health, position, Quaternion.identity);
+        Instantiate(_spawnObject, position, Quaternion.identity);
     }
 }

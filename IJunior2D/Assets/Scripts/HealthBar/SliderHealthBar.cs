@@ -12,7 +12,7 @@ public class SliderHealthBar : HealthBar
 
     private new void Start()
     {
-        _slider.maxValue = _MaxValue;
+        _slider.maxValue = MaxValue;
         base.Start();
     }
 
