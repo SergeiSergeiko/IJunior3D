@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class SliderHealthBar : HealthBar
 {
     [SerializeField] private Slider _slider;
-    [SerializeField] private float _smoothSpeed;
+    [SerializeField] private float _speedChangeValue;
     [SerializeField] private bool _smoothHealEnable;
 
     private Coroutine _smoothChangeValue;
@@ -28,7 +28,8 @@ public class SliderHealthBar : HealthBar
     {
         while (_slider.value != value)
         {
-            _slider.value = Mathf.MoveTowards(_slider.value, value, _smoothSpeed * Time.deltaTime);
+            _slider.value = Mathf.MoveTowards(_slider.value, value,
+                _speedChangeValue * Time.deltaTime);
 
             yield return null;
         }

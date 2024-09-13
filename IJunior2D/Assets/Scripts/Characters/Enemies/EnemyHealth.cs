@@ -4,7 +4,7 @@ namespace Enemies
 {
     public class EnemyHealth : Health
     {
-        [SerializeField] private GameObject _target;
+        [SerializeField] private Enemy _owner;
         [SerializeField] private ParticleSystem _dieEffect;
         [SerializeField] private EnemyCollisionHandler _collisionHandler;
 
@@ -22,7 +22,7 @@ namespace Enemies
         {
             base.Die();
             Instantiate(_dieEffect, transform.position, Quaternion.identity);
-            Destroy(_target.gameObject);
+            Destroy(_owner.gameObject);
         }
     }
 }

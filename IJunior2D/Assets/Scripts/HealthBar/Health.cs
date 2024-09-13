@@ -1,5 +1,4 @@
 using System;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -15,7 +14,7 @@ public class Health : MonoBehaviour
         TakeHeal(MaxValue);
     }
 
-    protected void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         SetValue(Value - damage);
 
@@ -23,7 +22,7 @@ public class Health : MonoBehaviour
             Die();
     }
 
-    protected void TakeHeal(int value)
+    public void TakeHeal(int value)
     {
         SetValue(Value + value);
     }

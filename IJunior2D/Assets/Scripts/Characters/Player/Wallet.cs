@@ -8,15 +8,9 @@ public class Wallet : MonoBehaviour
 
     public int Coins
     {
-        get
-        {
-            return _coins;
-        }
+        get => _coins;
 
-        private set
-        {
-            _coins = Mathf.Clamp(value, 0, int.MaxValue);
-        }
+        private set => _coins = Mathf.Clamp(value, 0, int.MaxValue);
     }
 
     private void OnEnable()
@@ -34,8 +28,8 @@ public class Wallet : MonoBehaviour
         Coins = 0;
     }
 
-    private void TakeCoin()
+    private void TakeCoin(int value)
     {
-        Coins++;
+        Coins += value;
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerHealth : Health
 {
-    [SerializeField] private GameObject _target;
+    [SerializeField] private Player _owner;
     [SerializeField] private PlayerCollisionHandler _collisionHandler;
 
     private void OnEnable()
@@ -20,6 +20,6 @@ public class PlayerHealth : Health
     protected override void Die()
     {
         base.Die();
-        Destroy(_target.gameObject);
+        Destroy(_owner.gameObject);
     }
 }

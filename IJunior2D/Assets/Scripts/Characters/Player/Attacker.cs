@@ -46,9 +46,7 @@ public class Attacker : MonoBehaviour
 
     private IEnumerator Reloading()
     {
-        WaitForSeconds wait = new(_reloadTime);
-
-        yield return wait;
+        yield return new WaitForSeconds(_reloadTime);
 
         IsAttack = false;
     }
