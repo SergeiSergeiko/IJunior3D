@@ -7,9 +7,11 @@ public class Ability : MonoBehaviour
     [SerializeField] protected KeyCode ActivateButton;
 
     protected Coroutine Countdowning;
-    protected Coroutine Reloading;
 
-    public event Action<float> ActionTime;
+    public event Action<float> ActionTimeChanged;
+
+    private event Action ReloadOver;
+    private event Action CountdownActiveTimeOver;
 
     [field: SerializeField] public string Name { get; protected set; }
     [field: SerializeField] public string Description { get; protected set; }
@@ -26,10 +28,31 @@ public class Ability : MonoBehaviour
         CanActivate = false;
     }
 
-    protected IEnumerator Countdown()
+    protected void CountdownActiveTime()
     {
         float start = 0f;
         float end = 1f;
+
+        RunCoroutineIfNotRunning(Countdown(start, end, CountdownActiveTimeOver),
+            Countdowning);
+    }
+
+    protected void Reload()
+    {
+        float start = 1f;
+        float end = 0f;
+
+        RunCoroutineIfNotRunning(Countdown(start, end, ReloadOver), Countdowning);
+    }
+
+    protected void RunCoroutineIfNotRunning(IEnumerator routine, Coroutine coroutine)
+    {
+        if (coroutine == null)
+            coroutine = StartCoroutine(routine);
+    }
+
+    private IEnumerator Countdown(float start, float end, Action countdownOver)
+    {
         float elapsedTime = 0f;
         float currentTime;
 
@@ -38,37 +61,21 @@ public class Ability : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
             currentTime = Mathf.Lerp(start, end, elapsedTime / Duraction);
-            ActionTime?.Invoke(currentTime);
+            ActionTimeChanged?.Invoke(currentTime);
 
             yield return null;
         }
 
-        IsActive = false;
+        countdownOver?.Invoke();
     }
 
-    protected IEnumerator Reload()
+    private void ReloadOverHandler()
     {
-        float start = 1f;
-        float end = 0f;
-        float elapsedTime = 0f;
-        float currentTime;
-
-        while (elapsedTime < Cooldown)
-        {
-            elapsedTime += Time.deltaTime;
-
-            currentTime = Mathf.Lerp(start, end, elapsedTime / Cooldown);
-            ActionTime?.Invoke(currentTime);
-
-            yield return null;
-        }
-
         CanActivate = true;
     }
-
-    protected void RunCoroutineIfNotRunning(IEnumerator routine, Coroutine coroutine)
+    
+    private void CountdownActiveTimeOverHandler()
     {
-        if (coroutine == null)
-            coroutine = StartCoroutine(routine);
+        IsActive = false;
     }
 }

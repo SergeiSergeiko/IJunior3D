@@ -35,7 +35,7 @@ public class LifeDrain : Ability
         base.Activate();
         _effect.Play();
         RunCoroutineIfNotRunning(Draining(), _draining);
-        RunCoroutineIfNotRunning(Countdown(), Countdowning);
+        CountdownActiveTime();
     }
 
     private IEnumerator Draining()
@@ -60,7 +60,7 @@ public class LifeDrain : Ability
         }
 
         _effect.Stop();
-        RunCoroutineIfNotRunning(Reload(), Reloading);
+        Reload();
     }
 
     private void InitParticleSystem()

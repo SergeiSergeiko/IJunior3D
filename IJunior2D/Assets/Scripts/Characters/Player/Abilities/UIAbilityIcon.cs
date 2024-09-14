@@ -1,19 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AbilityActionTimeShower :  MonoBehaviour
+public class UIAbilityIcon :  MonoBehaviour
 {
     [SerializeField] private Ability _ability;
     [SerializeField] private Slider _slider;
 
     private void OnEnable()
     {
-        _ability.ActionTime += ShowActionTime;
+        _ability.ActionTimeChanged += ActionTimeHandler;
     }
 
     private void OnDisable()
     {
-        _ability.ActionTime -= ShowActionTime;
+        _ability.ActionTimeChanged -= ActionTimeHandler;
     }
 
     private void Start()
@@ -21,7 +21,7 @@ public class AbilityActionTimeShower :  MonoBehaviour
         _slider.value = 0f;
     }
 
-    private void ShowActionTime(float value)
+    private void ActionTimeHandler(float value)
     {
         _slider.value = value;
     }
